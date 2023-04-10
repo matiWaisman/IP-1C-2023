@@ -40,7 +40,32 @@ maximoAbsoluto x y | absoluto x > absoluto y = absoluto x
 
 --Punto C
 
+maximo:: Int -> Int -> Int
+maximo x y | x > y = x
+           | x < y = y
+
 maximo3:: Int -> Int -> Int -> Int
-maximo3 x y z | absoluto x == maximoAbsoluto x y && absoluto x == maximoAbsoluto x z = absoluto x  
-                | absoluto y == maximoAbsoluto x y && absoluto x == maximoAbsoluto y z = absoluto y
-                | absoluto z == maximoAbsoluto x z && absoluto z == maximoAbsoluto y z = absoluto z 
+maximo3 x y z | x == maximo x y && x == maximo x z = x  
+              | y == maximo x y && x == maximo y z = y
+              | z == maximo x z && z == maximo y z = z 
+
+--Punto D
+
+--Usando Pattern Matching
+
+algunoEs0P:: Float -> Float -> Bool
+algunoEs0P _ 0 = True
+algunoEs0P 0 _ = True
+algunoEs0P _ _ = False
+
+
+--Usando Guardas
+
+algunoEs0G:: Float -> Float -> Bool
+algunoEs0G x y | x == 0 || y == 0 = True
+               | otherwise = False
+
+-- Punto F
+
+--mismoIntervalo:: Float -> Float -> Bool
+
