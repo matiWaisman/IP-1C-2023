@@ -26,7 +26,7 @@ h n = f (g n)
 k :: Int -> Int
 k n = g (f n)
 
--- Punto 2
+-- Ejercicio 2
 
 -- Punto A
 
