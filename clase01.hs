@@ -212,3 +212,19 @@ bisiesto :: Int -> Bool
 bisiesto y
   | not (esMultiploDe y 4) || (esMultiploDe y 100 && not (esMultiploDe y 400)) = False
   | otherwise = True
+
+-- Ejercicio 7
+
+-- distanciaManhattan :: (Float, Float, Float) ->(Float, Float, Float) -> Float
+-- distanciaManhattan (p1,p2,p3) (q1,q2,q3)
+
+-- Ejercicio 8
+
+comparar :: Int -> Int -> Int
+comparar a b
+  | sumaUltimoDosDigitos a < sumaUltimoDosDigitos b = 1
+  | sumaUltimoDosDigitos a > sumaUltimoDosDigitos b = -1
+  | sumaUltimoDosDigitos a == sumaUltimoDosDigitos b = 0
+
+sumaUltimoDosDigitos :: Int -> Int
+sumaUltimoDosDigitos x = digitoUnidades x + digitoDecenas x
