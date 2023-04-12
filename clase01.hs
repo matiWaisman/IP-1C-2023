@@ -123,3 +123,68 @@ digitoUnidades x = x `mod` 10
 
 digitoDecenas :: Int -> Int
 digitoDecenas x = (x `div` 10) `mod` 10
+
+-- Ejercicio 3
+
+estanRelacionados :: Int -> Int -> Bool
+estanRelacionados a b
+  | a == 0 && b == 0 = False
+  | a * a + a * b * k == 0 = True
+  | otherwise = False
+  where
+    k = div (a * a) ((-a) * b)
+
+-- Ejercicio 4
+
+-- Punto A
+
+prodInt :: (Int, Int) -> (Int, Int) -> Int
+prodInt (x1, y1) (x2, y2) = x1 * x1 + y1 * y2
+
+-- Punto B
+
+todoMenor :: (Int, Int) -> (Int, Int) -> Bool
+todoMenor (x1, y1) (x2, y2)
+  | x1 < x2 && y1 < y2 = True
+  | otherwise = False
+
+-- Punto C
+
+distanciaPuntos :: (Float, Float) -> (Float, Float) -> Float
+distanciaPuntos (x1, y1) (x2, y2) = sqrt ((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+
+-- Punto D
+
+sumaTerna :: (Int, Int, Int) -> Int
+sumaTerna (x1, x2, x3) = x1 + x2 + x3
+
+-- Punto F
+
+sumarSoloMultiplos :: (Int, Int, Int) -> Int -> Int
+sumarSoloMultiplos (x1, x2, x3) n
+  | n < 0 = 0
+  | n > 0 = determinarMultiplo x1 n + determinarMultiplo x2 n + determinarMultiplo x3 n
+
+determinarMultiplo :: Int -> Int -> Int
+determinarMultiplo x n
+  | mod x n == 0 = x
+  | mod x n /= 0 = 0
+
+-- Punto F
+
+posPrimerPar :: (Int, Int, Int) -> Int
+posPrimerPar (x1, x2, x3)
+  | esMultiploDe x1 2 = 0
+  | esMultiploDe x2 2 = 1
+  | esMultiploDe x3 2 = 3
+  | otherwise = 4
+
+-- Punto G
+
+crearPar :: a -> b -> (a, b)
+crearPar a b = (a, b)
+
+-- Punto H
+
+invertir :: (a, b) -> (b, a)
+invertir (a, b) = (b, a)
