@@ -71,10 +71,6 @@ algunoEs0G x y
   | x == 0 || y == 0 = True
   | otherwise = False
 
--- Punto F
-
--- mismoIntervalo:: Float -> Float -> Bool
-
 -- Punto E
 
 -- Usando Guardas
@@ -215,8 +211,8 @@ bisiesto y
 
 -- Ejercicio 7
 
--- distanciaManhattan :: (Float, Float, Float) ->(Float, Float, Float) -> Float
--- distanciaManhattan (p1,p2,p3) (q1,q2,q3)
+distanciaManhattan :: (Float, Float, Float) -> (Float, Float, Float) -> Float
+distanciaManhattan (p1, p2, p3) (q1, q2, q3) = abs (p1 - q1) + abs (p2 - q2) + abs (p3 - q3)
 
 -- Ejercicio 8
 
