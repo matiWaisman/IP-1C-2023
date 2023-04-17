@@ -19,14 +19,22 @@ esDivisor n d | n == 0 = True
               | otherwise = esDivisor (n - d) d
 
 -- Ejercicio 4
+
 sumaImpares :: Int -> Int 
 sumaImpares n | n == 1 = 1
               | otherwise = sumaImpares(n-1) + nesimoImpar n
+
+--Ejercicio 5
 
 nesimoImpar :: Int -> Int
 nesimoImpar n | n == 1 = 1 
               | otherwise = nesimoImpar(n-1) + 2
 
 -- Ejercicio 7
---todosDigitosIguales :: Int -> Bool
---todosDigitosIguales n 
+
+todosDigitosIguales :: Int -> Bool
+todosDigitosIguales n | n `mod` 10 /= n `div` 10 = False
+                      | n < 10 = True 
+                      | n `div` 10 >= 10 = todosDigitosIguales (n `div` 10)
+
+-- Ejercicio 8
