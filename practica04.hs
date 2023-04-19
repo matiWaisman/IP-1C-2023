@@ -156,7 +156,7 @@ segundaSumatoria i m
 -- sumaPotencias :: Int ->Int ->Int ->Int
 -- sumaPotencias q n m
 
--- Ejercicio 15 To finish
+-- Ejercicio 15
 
 sumaRacionales :: Int -> Int -> Float
 sumaRacionales n m
@@ -165,5 +165,13 @@ sumaRacionales n m
 
 sumaInterna :: Int -> Int -> Float
 sumaInterna p m
-  | p == 1 = fromIntegral p / fromIntegral m
+  | m == 1 = fromIntegral p / fromIntegral m
   | otherwise = sumaInterna p (m - 1) + fromIntegral p / fromIntegral m
+
+-- Ejercicio 16 Como resolverlos sin pasar un parametro
+
+-- menorDivisor :: Int -> Int --
+-- menorDivisor n
+
+-- esPrimo :: Int ->Bool
+-- esPrimo n
