@@ -68,3 +68,11 @@ cantidadDeDigitos :: Int -> Int
 cantidadDeDigitos n
   | n < 10 = 1
   | otherwise = 1 + cantidadDeDigitos (n `div` 10)
+
+-- Ejercicio 9
+
+esCapicua :: Int -> Bool
+esCapicua n
+  | n < 10 = True
+  | n `div` (10 ^ (cantidadDeDigitos n - 1)) /= n `mod` 10 = False
+  | otherwise = esCapicua
