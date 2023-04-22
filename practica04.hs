@@ -153,11 +153,11 @@ dobleSumatoria :: Integer -> Integer -> Integer
 dobleSumatoria n m
   | n == 1 = segundaSumatoria 1 m
   | otherwise = dobleSumatoria (n - 1) m + segundaSumatoria n m
-
-segundaSumatoria :: Integer -> Integer -> Integer
-segundaSumatoria i m
-  | m == 1 = i ^ m
-  | otherwise = segundaSumatoria i (m - 1) + i ^ m
+  where
+    segundaSumatoria :: Integer -> Integer -> Integer
+    segundaSumatoria i m
+      | m == 1 = i ^ m
+      | otherwise = segundaSumatoria i (m - 1) + i ^ m
 
 -- Ejercicio 14 Preguntar consigna
 
