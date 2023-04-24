@@ -86,8 +86,8 @@ ambosSon0P 0 0 = True -- Como uso el otherwise aca? Asi no tengo que hacer los 4
 
 -- Punto F
 
-mismoIntegerervalo :: Float -> Float -> Bool
-mismoIntegerervalo x y
+mismoIntervalo :: Float -> Float -> Bool
+mismoIntervalo x y
   | x <= 3 && y <= 3 = True
   | (x > 3 && x <= 7) && (y > 3 && x <= 7) = True
   | x > 7 && y > 7 = True
