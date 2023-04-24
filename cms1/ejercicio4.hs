@@ -1,5 +1,10 @@
-sumaPrimerosNImparesEspecial :: Integer -> Integer
-sumaPrimerosNImparesEspecial n = calcularSumatoriaNImpares (2 * n)
+main :: IO ()
+main = do
+  x <- readLn
+  print (sumaPrimerosNImpares (x :: (Integer)))
+
+sumaPrimerosNImpares :: Integer -> Integer
+sumaPrimerosNImpares n = calcularSumatoriaNImpares (2 * n)
   where
     calcularSumatoriaNImpares :: Integer -> Integer
     calcularSumatoriaNImpares i

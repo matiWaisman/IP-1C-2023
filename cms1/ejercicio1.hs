@@ -1,5 +1,3 @@
--- Ejercicio 1
-
 maximo :: Integer -> Integer -> Integer -> Integer
 maximo a b c
   | a == calcularMaximo a b && a == calcularMaximo a c = a

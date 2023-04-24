@@ -1,3 +1,8 @@
+main :: IO ()
+main = do
+  x <- readLn
+  print (combinacionesMenoresOIguales (x :: (Integer)))
+
 combinacionesMenoresOIguales :: Integer -> Integer
 combinacionesMenoresOIguales n = iterarI n n
   where

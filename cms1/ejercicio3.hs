@@ -1,3 +1,8 @@
+main :: IO ()
+main = do
+  x <- readLn
+  print (prod (x :: (Integer)))
+
 prod :: Integer -> Integer
 prod n = calcularProductoria (2 * n)
   where
