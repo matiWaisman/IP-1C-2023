@@ -22,7 +22,7 @@ minimo a b c
       | a < b = a
       | a > b = b
 
--- esPermutacion :: (Integer, Integer) -> ()
+-- esPermutacion :: (Integer, Integer) -> () o a es menor o c mayor
 
 -- medio :: Integer -> Integer -> Integer -> Integer
 -- medio a b c

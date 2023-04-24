@@ -43,4 +43,3 @@ todosDistintos (x:xs) = verificarDistinto x xs
 
 
 
-

@@ -214,7 +214,7 @@ esFibonacci n = iterarFibo n 0
   where
     iterarFibo :: Integer -> Integer -> Bool
     iterarFibo n i
-      | fib i == n = True
+      | fib i == n = True -- La clausula de cortar cuando fib n es mas grande con n
       | n - fib i < -100 = False -- Esto lo hago para cortar el loop, si por ejemplo me dan 500 i i = 14 -> Fib 14 = 377 = 15 -> Fib 15 = 610 500 - 610 = 100, corto
       | otherwise = iterarFibo n (i + 1)
 
