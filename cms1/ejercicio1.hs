@@ -1,3 +1,13 @@
+main :: IO ()
+main = do
+  x <- readLn
+  print (sumaMenosQueMax (x :: (Integer, Integer, Integer)))
+
+sumaMenosQueMax :: (Integer, Integer, Integer) -> Bool
+sumaMenosQueMax (t0, t1, t2)
+  | maximo t0 t1 t2 > (minimo t0 t1 t2 + medio t0 t1 t2) = True
+  | otherwise = False
+
 maximo :: Integer -> Integer -> Integer -> Integer
 maximo a b c
   | a == calcularMaximo a b && a == calcularMaximo a c = a
@@ -20,7 +30,8 @@ minimo a b c
       | a < b = a
       | a > b = b
 
--- esPermutacion :: (Integer, Integer) -> () o a es menor o c mayor
-
--- medio :: Integer -> Integer -> Integer -> Integer
--- medio a b c
+medio :: Integer -> Integer -> Integer -> Integer
+medio a b c
+  | (a <= b && b <= c) || (c <= b && b <= a) = b
+  | (b <= a && a <= c) || (c <= a && a <= c) = a
+  | otherwise = c
