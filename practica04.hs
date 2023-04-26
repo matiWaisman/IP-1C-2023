@@ -98,13 +98,13 @@ f2g n q
   | q == 1 || q == -1 = fromIntegral n + 1
   | otherwise = (q ^ (n + 1) - 1) / q - 1 -- Verificar
 
-f3s :: Integer -> Float -> Float
+f3s :: Integer -> Float -> Float -- Se rompe todo, preguntar
 f3s n q = sumatoria2n (2 * n) q
   where
     sumatoria2n :: Integer -> Float -> Float
     sumatoria2n dosN q
       | dosN == 1 = q
-      | otherwise = f3s (dosN - 1) q + q ^ dosN
+      | otherwise = f3s (dosN - 1) q + (q ^ dosN)
 
 -- f3g :: Integer -> Float -> Float To do
 
