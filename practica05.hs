@@ -131,3 +131,21 @@ ordenar [x] = [x]
 ordenar (x : y : xs)
   | x > y = y : x : ordenar xs
   | otherwise = ordenar (y : xs)
+
+-- Ejercicio 4
+
+-- sacarBlancosRepetidos :: [Char] -> [Char] Seria si hay dos espacios juntos devuelvo un solo espacio?
+-- sacarBlancosRepetidos
+
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 1
+contarPalabras (x : xs)
+  | x == ' ' = 1 + contarPalabras xs
+  | otherwise = contarPalabras xs
+
+-- palabraMasLarga :: [Char] -> [Char]
+encontrarEspacios :: Integer -> [Char] -> [Integer]
+encontrarEspacios i xs
+  | i >= fromIntegral (length xs) = []
+  | xs !! fromIntegral i == ' ' = i : encontrarEspacios (i + 1) xs
+  | otherwise = encontrarEspacios (i + 1) xs
