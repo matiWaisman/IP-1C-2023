@@ -124,3 +124,10 @@ multiplosDeN n [] = []
 multiplosDeN n (x : xs)
   | x `mod` n == 0 = x : multiplosDeN n xs
   | otherwise = multiplosDeN n xs
+
+ordenar :: [Integer] -> [Integer]
+ordenar [] = []
+ordenar [x] = [x]
+ordenar (x : y : xs)
+  | x > y = y : x : ordenar xs
+  | otherwise = ordenar (y : xs)
