@@ -143,9 +143,14 @@ contarPalabras (x : xs)
   | x == ' ' = 1 + contarPalabras xs
   | otherwise = contarPalabras xs
 
--- palabraMasLarga :: [Char] -> [Char]
+-- palabraMasLarga :: [Char] -> [Char] -- Idea: primero encontrar donde estan los espacios con la funcion encontrarEspacios, despues dado la lista con los espacios encontrar que palabra entre dos espacios es mas grande con calcularRangoPalabraMasLarga que devuelve una lista con dos elementos, la primera y ultima posicion de la lista de los espacios y por ultimo dados esos dos numeros reconstruir la palabra con otra funcion
+-- palabraMasLarga = calcularRangoPalabraMasLarga
+
+-- calcularRangoPalabraMasLarga :: [Integer] -> Integer -> [Integer]
+-- calcularRangoPalabraMasLarga (x:xs) l -- xs = Lista con los 0s, l = lenght de la lista
+
 encontrarEspacios :: Integer -> [Char] -> [Integer]
 encontrarEspacios i xs
-  | i >= fromIntegral (length xs) = []
+  | i == 0 = []
   | xs !! fromIntegral i == ' ' = i : encontrarEspacios (i + 1) xs
   | otherwise = encontrarEspacios (i + 1) xs
