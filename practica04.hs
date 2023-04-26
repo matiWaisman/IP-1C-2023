@@ -71,12 +71,11 @@ cantidadDeDigitos n
 
 -- Ejercicio 9
 
--- esCapicua :: Integer -> Bool
--- esCapicua n
-
--- | n < 10 = True
--- | n `div` (10 ^ (cantidadDeDigitos n - 1)) /= n `mod` 10 = False
--- | otherwise = esCapicua
+esCapicua :: Integer -> Bool
+esCapicua n
+  | n < 10 = True
+  | n `div` (10 ^ (cantidadDeDigitos n - 1)) /= n `mod` 10 = False
+  | otherwise = esCapicua ((n `mod` 10 ^ (cantidadDeDigitos n - 1)) `div` 10)
 
 -- Ejercicio 10
 -- Los que terminan en s son los ejercicios resueltos con forma de sumatoria y los que terminan en g son usando el termino general probado por induccion
