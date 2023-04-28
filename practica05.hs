@@ -55,19 +55,29 @@ quitar e (y : ys)
   | y == e = ys
   | otherwise = y : quitar e ys
 
--- quitarTodos :: (Eq t ) => t -> [t] -> [t]
--- quitarTodos _[] = []
--- quitarTodos e l
---    | y == e = quitar e
---    | otherwise =
+quitarTodos :: (Eq t) => t -> [t] -> [t]
+quitarTodos e [] = []
+quitarTodos e (x : xs)
+  | x == e = quitarTodos e xs
+  | otherwise = x : quitarTodos e xs
 
 -- eliminarRepetidos :: (Eq t) => [t] -> [t]
 -- eliminarRepetidos
 
+-- buscarRepetidos :: (Eq t) => [t] -> [t]
+-- buscarRepetidos [x] = []
+-- buscarRepetidos (x : xs) = encontrarRepetidos x (x : xs)
+
+-- encontrarRepetidos :: (Eq t) => t -> [t] -> [t]
+-- encontrarRepetidos _ [] = []
+-- encontrarRepetidos e (y : ys)
+--  | y == e = y : encontrarRepetidos e ys
+--  | otherwise = encontrarRepetidos e ys
+
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos [x] y = True
 mismosElementos (x : xs) y
-  | null xs = True -- Como cambiar esto para que quede mas elegante
-  | pertenece x y == False = False
+  | not (pertenece x y) = False
   | otherwise = mismosElementos xs y
 
 capicua :: (Eq t) => [t] -> Bool
@@ -78,14 +88,12 @@ capicua l
 -- Ejercicio 3
 
 sumatoria :: [Integer] -> Integer
-sumatoria (x : xs)
-  | null xs = x
-  | otherwise = x + sumatoria xs
+sumatoria [x] = x
+sumatoria (x : xs) = x + sumatoria xs
 
 productoria :: [Integer] -> Integer
-productoria (x : xs)
-  | null xs = x
-  | otherwise = x * productoria xs
+productoria [x] = x
+productoria (x : xs) = x * productoria xs
 
 maximo :: [Integer] -> Integer
 maximo (x : xs) = calcularMaximo x xs
@@ -98,8 +106,7 @@ maximo (x : xs) = calcularMaximo x xs
       | otherwise = calcularMaximo max xs
 
 sumarN :: Integer -> [Integer] -> [Integer]
-sumarN n [] = []
-sumarN n (x : xs) = (x + n) : sumarN n xs
+sumarN n xs = map (+ n) xs
 
 sumarElPrimero :: [Integer] -> [Integer]
 sumarElPrimero (x : xs) = x + x : sumarN x xs
@@ -108,15 +115,14 @@ sumarElUltimo :: [Integer] -> [Integer]
 sumarElUltimo [] = []
 sumarElUltimo (x : xs) = x + conseguirElUltimo (x : xs) : sumarElUltimo xs -- : sumarN conseguirElUltimo (x : xs) xs tambien deberia funcionar
   where
-    conseguirElUltimo :: [Integer] -> Integer -- Podria usar last pero lo hago por el amor al arte!!!
-    conseguirElUltimo (x : xs)
-      | null xs = x
-      | otherwise = conseguirElUltimo xs
+    conseguirElUltimo :: [Integer] -> Integer
+    conseguirElUltimo [x] = x -- Podria usar last pero lo hago por el amor al arte!!!
+    conseguirElUltimo (x : xs) = conseguirElUltimo xs
 
 pares :: [Integer] -> [Integer]
 pares [] = []
 pares (x : xs)
-  | x `mod` 2 == 0 = x : pares xs
+  | even x = x : pares xs
   | otherwise = pares xs
 
 multiplosDeN :: Integer -> [Integer] -> [Integer]
@@ -134,10 +140,14 @@ ordenar (x : y : xs)
 
 -- Ejercicio 4
 
--- sacarBlancosRepetidos :: [Char] -> [Char] Seria si hay dos espacios juntos devuelvo un solo espacio?
--- sacarBlancosRepetidos
+sacarBlancosRepetidos :: String -> String
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [x] = [x]
+sacarBlancosRepetidos (x : y : xs)
+  | x == ' ' && y == ' ' = y : sacarBlancosRepetidos xs
+  | otherwise = x : y : sacarBlancosRepetidos xs
 
-contarPalabras :: [Char] -> Integer
+contarPalabras :: String -> Integer
 contarPalabras [] = 1
 contarPalabras (x : xs)
   | x == ' ' = 1 + contarPalabras xs
@@ -149,8 +159,51 @@ contarPalabras (x : xs)
 -- calcularRangoPalabraMasLarga :: [Integer] -> Integer -> [Integer]
 -- calcularRangoPalabraMasLarga (x:xs) l -- xs = Lista con los 0s, l = lenght de la lista
 
-encontrarEspacios :: Integer -> [Char] -> [Integer]
+encontrarEspacios :: Integer -> String -> [Integer]
 encontrarEspacios i xs
   | i == 0 = []
   | xs !! fromIntegral i == ' ' = i : encontrarEspacios (i + 1) xs
   | otherwise = encontrarEspacios (i + 1) xs
+
+aplanar :: [String] -> String
+aplanar [x] = x
+aplanar (x : xs) = x ++ aplanar xs
+
+aplanarConBlancos :: [String] -> String
+aplanarConBlancos [x] = x
+aplanarConBlancos (x : xs) = x ++ [' '] ++ aplanar xs
+
+aplanarConNBlancos :: [String] -> Integer -> String
+aplanarConNBlancos [x] n = x
+aplanarConNBlancos (x : xs) n = x ++ generarNBlancos n ++ aplanarConNBlancos xs n
+
+generarNBlancos :: Integer -> String
+generarNBlancos 1 = [' ']
+generarNBlancos n = ' ' : generarNBlancos (n - 1)
+
+-- Ejercicio 5
+
+nat2bin :: Integer -> [Integer]
+nat2bin n
+  | n < 2 = [1]
+  | n == 0 = [0]
+  | otherwise = nat2bin (n `div` 2) ++ [n `mod` 2]
+
+bin2nat :: [Integer] -> Integer
+bin2nat [x] = 1 * x
+bin2nat (x : xs) = (2 ^ length xs) * x + bin2nat xs
+
+nat2hex :: Integer -> [Char] -- Me devuelve un caracter unicode, ver como resolver
+nat2hex n
+  | n < 16 = [pasarNumeroAHexa n]
+  | otherwise = nat2hex (n `div` 16) ++ [pasarNumeroAHexa (n `mod` 16)]
+  where
+    pasarNumeroAHexa :: Integer -> Char -- La idea es que el valor este si o si entre 0 y 16
+    pasarNumeroAHexa n
+      | n < 10 = toEnum (fromInteger n)
+      | n == 10 = 'A'
+      | n == 11 = 'B'
+      | n == 12 = 'C'
+      | n == 13 = 'D'
+      | n == 14 = 'E'
+      | n == 15 = 'F'
