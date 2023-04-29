@@ -106,7 +106,7 @@ maximo (x : xs) = calcularMaximo x xs
       | otherwise = calcularMaximo max xs
 
 sumarN :: Integer -> [Integer] -> [Integer]
-sumarN n xs = map (+ n) xs
+sumarN n = map (+ n)
 
 sumarElPrimero :: [Integer] -> [Integer]
 sumarElPrimero (x : xs) = x + x : sumarN x xs
@@ -176,10 +176,10 @@ aplanarConBlancos (x : xs) = x ++ [' '] ++ aplanar xs
 aplanarConNBlancos :: [String] -> Integer -> String
 aplanarConNBlancos [x] n = x
 aplanarConNBlancos (x : xs) n = x ++ generarNBlancos n ++ aplanarConNBlancos xs n
-
-generarNBlancos :: Integer -> String
-generarNBlancos 1 = [' ']
-generarNBlancos n = ' ' : generarNBlancos (n - 1)
+  where
+    generarNBlancos :: Integer -> String
+    generarNBlancos 1 = [' ']
+    generarNBlancos n = ' ' : generarNBlancos (n - 1)
 
 -- Ejercicio 5
 
@@ -191,9 +191,9 @@ nat2bin n
 
 bin2nat :: [Integer] -> Integer
 bin2nat [x] = 1 * x
-bin2nat (x : xs) = (2 ^ length xs) * x + bin2nat xs
+bin2nat (x : xs) = 2 ^ length xs * x + bin2nat xs
 
-nat2hex :: Integer -> [Char] -- Me devuelve un caracter unicode, ver como resolver
+nat2hex :: Integer -> String -- Me devuelve un caracter unicode, ver como resolver
 nat2hex n
   | n < 16 = [pasarNumeroAHexa n]
   | otherwise = nat2hex (n `div` 16) ++ [pasarNumeroAHexa (n `mod` 16)]
@@ -207,3 +207,52 @@ nat2hex n
       | n == 13 = 'D'
       | n == 14 = 'E'
       | n == 15 = 'F'
+
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
+sumaAcumulada [x] = [x]
+sumaAcumulada (x : y : xs) = x : sumaAcumulada (x + y : xs)
+
+descomponerEnPrimos :: [Integer] -> [[Integer]] -- Preguntar si esta bien
+descomponerEnPrimos [] = []
+descomponerEnPrimos [x] = [calcularDescomposicion x (x - 1)]
+descomponerEnPrimos (x : xs) = calcularDescomposicion x (x - 1) : descomponerEnPrimos xs
+
+calcularDescomposicion :: Integer -> Integer -> [Integer]
+calcularDescomposicion n i
+  | esPrimo n = [n]
+  | i == 1 = []
+  | i < n && (n `mod` i) == 0 = calcularDescomposicion n (i - 1) ++ [i]
+  | otherwise = calcularDescomposicion n (i - 1)
+
+esPrimo :: Integer -> Bool
+esPrimo n
+  | encontrarMenorDivisor n 2 == n = True
+  | otherwise = False
+  where
+    encontrarMenorDivisor :: Integer -> Integer -> Integer
+    encontrarMenorDivisor n i
+      | n == 1 = 1
+      | n /= i && n `mod` i == 0 = i
+      | n == i = i
+      | otherwise = encontrarMenorDivisor n (i + 1)
+
+-- Ejercicio 6
+
+-- type Set a = [a]
+
+{- agregarATodos :: Integer -> Set (Set Integer) -> Set (Set Integer) -- Preguntar como asignarle al conjunto al elemento pq en la teorica no dice nada
+agregarATodos n [] = []
+agregarATodos n (x : xs)
+  | not (pertenece n x) = x : n
+  | otherwise = agregarATodos n xs
+
+partes :: Integer -> Set (Set Integer) No se como encararlo
+partes n
+
+productoCartesiano :: Set Integer -> Set Integer -> Set (Integer, Integer)
+productoCartesiano (x : xs) y = agregarPrimero x y
+  where
+    agregarPrimero :: Integer -> Set Integer -> Set (Integer)
+    agregarPrimero x (y : ys) = x : y
+-}
