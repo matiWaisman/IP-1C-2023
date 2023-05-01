@@ -61,18 +61,17 @@ quitarTodos e (x : xs)
   | x == e = quitarTodos e xs
   | otherwise = x : quitarTodos e xs
 
--- eliminarRepetidos :: (Eq t) => [t] -> [t]
--- eliminarRepetidos
-
--- buscarRepetidos :: (Eq t) => [t] -> [t]
--- buscarRepetidos [x] = []
--- buscarRepetidos (x : xs) = encontrarRepetidos x (x : xs)
-
--- encontrarRepetidos :: (Eq t) => t -> [t] -> [t]
--- encontrarRepetidos _ [] = []
--- encontrarRepetidos e (y : ys)
---  | y == e = y : encontrarRepetidos e ys
---  | otherwise = encontrarRepetidos e ys
+eliminarRepetidos :: (Eq t) => [t] -> [t] -- No funciona adecuadamente
+eliminarRepetidos [] = []
+eliminarRepetidos (x : xs)
+  | pertenece x xs = eliminarRepetidos (eliminarRepetido x xs)
+  | otherwise = x : eliminarRepetidos xs
+  where
+    eliminarRepetido :: (Eq t) => t -> [t] -> [t]
+    eliminarRepetido _ [] = []
+    eliminarRepetido e (y : ys)
+      | e == y = eliminarRepetido e ys
+      | otherwise = y : eliminarRepetido e ys
 
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos [x] y = True
@@ -147,23 +146,36 @@ sacarBlancosRepetidos (x : y : xs)
   | x == ' ' && y == ' ' = y : sacarBlancosRepetidos xs
   | otherwise = x : y : sacarBlancosRepetidos xs
 
-contarPalabras :: String -> Integer
-contarPalabras [] = 1
-contarPalabras (x : xs)
-  | x == ' ' = 1 + contarPalabras xs
-  | otherwise = contarPalabras xs
+palabraMasLarga :: [Char] -> String
+palabraMasLarga x = palabras x !! fromIntegral (posNumeroMasGrande (contarPalabras x) 0 0)
 
--- palabraMasLarga :: [Char] -> [Char] -- Idea: primero encontrar donde estan los espacios con la funcion encontrarEspacios, despues dado la lista con los espacios encontrar que palabra entre dos espacios es mas grande con calcularRangoPalabraMasLarga que devuelve una lista con dos elementos, la primera y ultima posicion de la lista de los espacios y por ultimo dados esos dos numeros reconstruir la palabra con otra funcion
--- palabraMasLarga = calcularRangoPalabraMasLarga
+posNumeroMasGrande :: [Integer] -> Integer -> Integer -> Integer
+posNumeroMasGrande [x] i max = max
+posNumeroMasGrande (x : y : xs) i max
+  | x >= y = posNumeroMasGrande (x : xs) (i + 1) max
+  | x < y = posNumeroMasGrande (y : xs) (i + 1) (i + 1)
 
--- calcularRangoPalabraMasLarga :: [Integer] -> Integer -> [Integer]
--- calcularRangoPalabraMasLarga (x:xs) l -- xs = Lista con los 0s, l = lenght de la lista
+contarPalabras :: [Char] -> [Integer]
+contarPalabras [] = []
+contarPalabras x = contarHastaEspacio x : contarPalabras (drop (fromIntegral (contarHastaEspacio x + 1)) x)
 
-encontrarEspacios :: Integer -> String -> [Integer]
-encontrarEspacios i xs
-  | i == 0 = []
-  | xs !! fromIntegral i == ' ' = i : encontrarEspacios (i + 1) xs
-  | otherwise = encontrarEspacios (i + 1) xs
+contarHastaEspacio :: [Char] -> Integer
+contarHastaEspacio [] = 0
+contarHastaEspacio [x] = 1
+contarHastaEspacio (x : xs)
+  | x == ' ' = 0
+  | otherwise = contarHastaEspacio xs + 1
+
+palabras :: [Char] -> [[Char]]
+palabras [] = []
+palabras x = acumularHastaEspacio x : palabras (drop (fromIntegral (contarHastaEspacio x + 1)) x)
+
+acumularHastaEspacio :: [Char] -> [Char]
+acumularHastaEspacio [] = []
+acumularHastaEspacio [x] = [x]
+acumularHastaEspacio (x : xs)
+  | x == ' ' = []
+  | otherwise = x : acumularHastaEspacio xs
 
 aplanar :: [String] -> String
 aplanar [x] = x
