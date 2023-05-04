@@ -263,9 +263,8 @@ agregarA n x
   | otherwise = x
 
 partes :: Integer -> Set (Set Integer)
-partes 0 = []
-
--- partes x = (agregarATodos x x-1) ++ x - 1
+partes 0 = [[]]
+partes x = agregarATodos x (partes (x - 1)) ++ partes (x - 1)
 
 productoCartesiano :: Set Integer -> Set Integer -> Set (Integer, Integer)
 productoCartesiano [] y = []
