@@ -251,20 +251,28 @@ esPrimo n
 
 -- Ejercicio 6
 
--- type Set a = [a]
+type Set a = [a]
 
-{- agregarATodos :: Integer -> Set (Set Integer) -> Set (Set Integer) -- Preguntar como asignarle al conjunto al elemento pq en la teorica no dice nada
+agregarATodos :: Integer -> Set (Set Integer) -> Set (Set Integer)
 agregarATodos n [] = []
-agregarATodos n (x : xs)
-  | not (pertenece n x) = x : n
-  | otherwise = agregarATodos n xs
+agregarATodos n (l : ls) = agregarA n l : (agregarATodos n ls)
 
-partes :: Integer -> Set (Set Integer) No se como encararlo
-partes n
+agregarA :: Integer -> Set Integer -> Set Integer
+agregarA n x
+  | not (pertenece n x) = n : x
+  | otherwise = x
+
+partes :: Integer -> Set (Set Integer)
+partes 0 = []
+
+-- partes x = (agregarATodos x x-1) ++ x - 1
 
 productoCartesiano :: Set Integer -> Set Integer -> Set (Integer, Integer)
-productoCartesiano (x : xs) y = agregarPrimero x y
-  where
-    agregarPrimero :: Integer -> Set Integer -> Set (Integer)
-    agregarPrimero x (y : ys) = x : y
--}
+productoCartesiano [] y = []
+productoCartesiano [x] y = productoUnElemento x y
+productoCartesiano (x : xs) y = productoUnElemento x y ++ productoCartesiano xs y
+
+productoUnElemento :: Integer -> Set Integer -> Set (Integer, Integer)
+productoUnElemento x [] = []
+productoUnElemento x [y] = [(x, y)]
+productoUnElemento x (y : ys) = (x, y) : productoUnElemento x ys
