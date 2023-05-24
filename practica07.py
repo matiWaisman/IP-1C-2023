@@ -42,22 +42,92 @@ def es_bisiesto(year: int) -> bool: return (year % 400 == 0 or (year % 4 == 0 an
 
 # Ejercicio 4
 
-#def peso_pino(altura: int) -> int:  # Altura expresada en centimetros
-#    for i in range 
+def peso_pino(altura_total: int) -> int:  # Altura expresada en centimetros
+    res: int = 0
+    altura_arriba_de_3: int = altura_total - 300
+    if(altura_arriba_de_3 > 0):
+        res = (altura_total - altura_arriba_de_3) * 3 + altura_arriba_de_3 * 2
+    else: 
+        res = altura_total * 3
+    return res
+
+def es_peso_util(peso_total: int) -> bool: return (peso_total >= 400 and peso_total <= 1000)
+
+def sirve_pino(altura_total: int) -> bool: return (es_peso_util(peso_pino(altura_total)))
+
+
 
 # Ejercicio 5
 
 def devolver_el_doble_si_es_par(n: int) -> int: 
-    if (es_par(n)): return 2*n
-    else: return n
+    res: int = n
+    if (es_par(n)): res = 2*n
+    return res
+
+def devolver_valor_si_es_par_sino_el_que_sigue (n) -> int: 
+    res: int = 0
+    if(es_par(n)): res = n
+    else: res = n + 1
+    return res  
+
+def devolver_el_doble_si_es_multiplo3_el_triple_si_es_multiplo9(n) -> int: 
+    res: int = n
+    if(es_multiplo_de(9,n)): res = 3 * n
+    if(es_multiplo_de(3,n) and es_multiplo_de(9,n) == False): res = 2 * n
+    return res
+
+def que_tan_grande_es_tu_nombre(nombre: str) -> str: 
+    res: str = ""
+    if(len(nombre) >= 5): res = "Tu nombre tiene muchas letras!"
+    else: res = "Tu nombre tiene menos de 5 caracteres"
+    return res
+
+def te_toca_irte_de_vacaciones(sexo: str, edad: int) -> str:
+    res: str = "Anda a trabajar"
+    if ((edad >= 65 and sexo=="M") or (edad >= 60 and sexo=="F")): res = "Anda de vacaciones" 
+    if (edad < 18): res= "Anda de vacaciones"
+    return res
+
 
 # Ejercicio 6
+
+def numeros_entre_1_y_10(): 
+    i: int = 1
+    while(i <= 10): 
+        print(i)
+        i+=1
+
+def numeros_pares_entre_10_y_40(): 
+    i: int = 10
+    while(i <= 40):
+        if(es_par(i)): print(i)
+        i+=1
 
 def pares_entre(cota_inferior: int, cota_superior: int): 
     i = cota_inferior
     while i <= cota_superior:
         if (es_par(i)): print(i)
         i += 1 
+
+def cuenta_regresiva(n: int): 
+    i: int = n
+    while(i > 0): 
+        print(i)
+        i = i - 1 
+    print("Despegue")
+
+def viaje_en_el_tiempo(partida:int, llegada: int):
+    i: int = partida
+    while(i >= llegada): 
+        print(f"Viajó un año en el pasado, estamos en el año: {i}")
+        i = i - 1
+
+def viaje_a_aristoteles(partida: int): 
+    i = partida
+    while(i >= -384): 
+        print(f"Viajó un año en el pasado, estamos en el año: {i}")
+        i = i - 20
+
 
 # Ejercicio 7
 
