@@ -1,3 +1,5 @@
+import random
+
 # Ejercicio 1
 
 def pertenece(l: list([int]), e: int) -> bool: 
@@ -75,12 +77,6 @@ def es_palindroma(palabra: str) -> bool: # Se podria usar returns en vez de los 
     return res
 
 def es_palindroma_lenta(palabra: str) -> bool: return (palabra == invertir_palabra(palabra)) 
-
-def invertir_palabra(palabra: str) -> str: 
-    res: str = ""
-    for i in range(len(palabra) - 1, -1, -1): 
-        res += palabra[i]
-    return res
 
 def evaluar_contra(palabra:str) -> str: 
     res: str = "Amarilla"
@@ -172,4 +168,70 @@ def borrar_vocales(palabra: str) -> str:
             res += palabra[i]
     return res
 
+def reemplazar_vocales(palabra: str) -> str: 
+    vocales: list[(str)] = ["a","e","i","o","u"]
+    palabra_en_lower: str = palabra[:].lower() 
+    res: str = ""
+    for i in range(0,len(palabra_en_lower),1):
+        if(pertenece_while(vocales, palabra_en_lower[i])): 
+            res += "_"
+        else: res += palabra[i]
+    return res
         
+def invertir_palabra(palabra: str) -> str: 
+    res: str = ""
+    for i in range(len(palabra) - 1, -1, -1): 
+        res += palabra[i]
+    return res
+
+# Ejercicio 3
+
+def armar_lista_de_estudiantes() -> list([str]): 
+    res: list([str]) = []
+    nombre : str = input("Ingresa el nombre del estudiante:")
+    while (nombre != "listo"): 
+        res.append(nombre)
+        nombre = input("Ingresa el nombre del estudiante:")
+    return res
+
+def monedero_electronico() -> list([(str, int)]): # Preguntar si hay que ir guardando la plata, onda que no me pueden descontar y que me quede monto negativo
+    res: list([str, int]) = []
+    operacion_actual = input("Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
+    while (operacion_actual == "C" or operacion_actual == "D"): 
+        if(operacion_actual == "C"): 
+            saldo = input("Ingrese cuanto le quiere cargar a la tarjeta: ")
+            res.append((operacion_actual, saldo))
+        if(operacion_actual == "D"): 
+            saldo = input("Ingrese cuanto quiere sacar de la cuenta: ")
+            res.append((operacion_actual, saldo))
+        operacion_actual = input("Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
+    return res
+
+def siete_y_medio(): #Preguntar pq devuelve una carta de mas
+    cartas : list([int]) = [generar_numero_random()]
+    desicion: str = input(f"Tu primer carta es el {cartas[0]} queres tirar otra carta? ")
+    while (desicion == "si" and sumar_puntos(cartas) < 7.5): 
+        desicion = input("Queres tirar otra carta?")
+        cartas.append(generar_numero_random())
+    if(sumar_puntos(cartas) < 7.5): 
+        print(f"Te falto! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
+    if(sumar_puntos(cartas) > 7.5): 
+        print(f"Te pasaste! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
+    if(sumar_puntos(cartas) == 7.5): 
+        print(f"Ganaste! tus cartas fueron: {cartas}")
+    
+def sumar_puntos(l: list([int])) -> int: 
+    res = 0
+    for i in range(0, len(l), 1): 
+        if(l[i] == 10 or l[i] == 1 or l[i] == 12): 
+            res += 0.5
+        else: res += 1
+    return res 
+
+def generar_numero_random() -> int: 
+    res = random.randint(1, 12)
+    while (res == 8 or res == 9): 
+        res = random.randint(1, 12)
+    return res
+
+
