@@ -1,5 +1,35 @@
 # Ejercicio 1
 
+def pertenece(l: list([int]), e: int) -> bool: 
+    res: bool = False
+    for i in range(0, len(l), 1):
+        if(l[i] == e): res = True
+    return res
+
+def pertenece_while(l: list([int]), e: int) -> bool: 
+    res: bool = False
+    sigo: bool = True
+    i: int = 0
+    while (i < len(l) and sigo == True): 
+        if(l[i] == e): 
+            res = True
+            sigo = False
+        i += 1
+    return res
+
+# Preguntar como hacer para que la lista y el elemento sean del mismo tipo de dato generico como haciamos en haskell
+
+def divide_a_todos(l: list([int]), e: int) -> bool: 
+    res: bool = False
+    sigo: bool = True
+    i: int = 0
+    while (i < len(l) and sigo == True):
+        if(i == len(l) - 1 and l[i] % e == 0): res = True
+        if(l[i] % e != 0): sigo = False
+        i += 1 
+    return res
+
+
 def sumaTotal (l: list([int])) -> int:
     res: int = 0
     for i in range(0,len(l),1):
@@ -18,7 +48,19 @@ def ordenados (l: list([int])) -> bool:
         i += 1
     return res
 
-def esPalindroma(palabra: str) -> bool:
+def alguna_palabra_larga(l: list([str]), longitud: int) -> bool: 
+    res: bool = False
+    i: int = 0
+    sigo: bool = True
+    while i < len(l) and sigo == True:
+        if(len(l[i]) > longitud): 
+            res = True
+            sigo = False
+        i += 1
+    return res
+    
+
+def es_palindroma(palabra: str) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
@@ -30,7 +72,16 @@ def esPalindroma(palabra: str) -> bool:
         i += 1
     return res
 
-print(esPalindroma("holloh")) # Arreglar impares
+#print(esPalindroma("holloh")) # Arreglar impares
+
+def es_palindroma_lenta(palabra: str) -> bool: return (palabra == invertir_palabra(palabra)) 
+
+def invertir_palabra(palabra: str) -> str: 
+    res: str = ""
+    for i in range(len(palabra) - 1, -1, -1): 
+        res += palabra[i]
+    return res
+
 
 # Ejercicio 2 
 
