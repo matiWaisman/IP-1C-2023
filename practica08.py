@@ -74,9 +74,6 @@ def es_palindroma(palabra: str) -> bool: # Se podria usar returns en vez de los 
         i += 1
     return res
 
-
-print(es_palindroma("holaoh")) # Arreglar impares
-
 def es_palindroma_lenta(palabra: str) -> bool: return (palabra == invertir_palabra(palabra)) 
 
 def invertir_palabra(palabra: str) -> str: 
@@ -150,17 +147,29 @@ def tiene_3_vocales_distintas(palabra:str) -> bool:
 
 # Ejercicio 2 
 
+lista = [1,2,3,4,5] 
 
+def borrar_pares_de_lista_modificando_parametro(l: list([int])) -> list([int]):  
+    res = l  
+    for i in range(0,len(res),1):
+        if res[i] % 2 == 0:
+            res[i] = 0
+    return res
 
-listaAlterada = [1,2,3,4,5] 
+def borrar_pares_de_lista_sin_modificar_original(l: list([int])) -> list([int]): 
+    res = l[:]  
+    for i in range(0,len(res),1):
+        if res[i] % 2 == 0:
+            res[i] = 0
+    return res
 
-def alterar_lista(l: list([int])) :
-    l[3] = 2
-
-
-def alterar_lista_por_copia(l: list([int])): 
-    res = l
-    res[3] = 2 
+def borrar_vocales(palabra: str) -> str: 
+    vocales: list[(str)] = ["a","e","i","o","u"]
+    palabra_en_lower: str = palabra[:].lower() 
+    res: str = ""
+    for i in range(0,len(palabra_en_lower),1):
+        if(not pertenece_while(vocales, palabra_en_lower[i])): 
+            res += palabra[i]
     return res
 
         
