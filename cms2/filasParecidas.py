@@ -5,7 +5,7 @@ from typing import List
 # Respetar esta sintaxis, ya que el CMS dirá que no pasó ningún test si usan otra notación.
 def filasParecidas(matriz: List[List[int]]) -> bool :
   diferencia_esperada: int = matriz[1][0] - matriz[0][0]
-  if len(matriz) == 1: return True
+  if len(matriz) == 1 or len(matriz) == 0: return True
   res: bool = True
   for i in range(0, len(matriz) - 1, 1): 
     for j in range(0, len(matriz[i]), 1): 
