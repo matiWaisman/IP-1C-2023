@@ -235,3 +235,26 @@ def generar_numero_random() -> int:
     return res
 
 
+# Ejercicio 4
+
+def pertenece_a_cada_uno(l: list([list([int])]), e: int) -> list([bool]):
+    res: list([bool]) = []
+    for i in range(0,len(l), 1): 
+        res.append(pertenece(l[i], e))
+    return res
+
+def es_matriz(l: list([list([int])])) -> bool: 
+    res: bool = True
+    longitud_matriz: int = len(l[0])
+    for i in range(1,len(l),1): 
+        if (len(l[i]) != longitud_matriz): 
+            res = False
+    return res 
+
+def filas_ordenadas(l: list([list([int])])) -> list([bool]):
+    res: list([bool]) = []
+    for i in range(0,len(l), 1): 
+        res.append(ordenados(l[i]))
+    return res
+
+print(filas_ordenadas([[1,2,3], [1,2,3], [6,5,4], [4,5,6]]))
