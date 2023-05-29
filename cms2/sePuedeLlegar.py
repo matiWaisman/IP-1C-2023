@@ -6,14 +6,24 @@ from typing import Tuple
 # t: Tuple[str,str]  <--Este es un ejemplo para una tupla de strings.
 # Respetar esta sintaxis, ya que el CMS dirá que no pasó ningún test si usan otra notación.
 def sePuedeLlegar(origen: str, destino: str, vuelos: List[Tuple[str, str]]) -> int :
-  res: int = -1 
-  hay_ruta(origen, destino, vuelos)
+  res: int = 1 
+  destino_actual: str = hay_partida(destino, vuelos)
+  while(destino_actual != "" and destino_actual != origen):
+    res += 1
+    destino_actual = hay_partida(destino_actual, vuelos)
+  if(destino_actual == ""): res = -1
   return res
 
-def hay_ruta(origen: str, destino: str, vuelos: List[Tuple[str, str]]) -> bool: 
-  res: bool = False
-  for i in range(0, len(vuelos), 1):
-    if(vuelos[i][1] == destino): res = 
+def hay_partida(destino: str, vuelos: List[Tuple[str, str]]) -> str: #Devuelve vacio si no hay, devuelve una ciudad que tiene un vuelo hacia el destino deseado
+  res: str = ""
+  sigo: bool = True
+  i: int = 0
+  while i < len(vuelos) and sigo:
+    if vuelos[i][1] == destino:
+      res = vuelos[i][0]
+      sigo = False
+    i += 1
+  return res
 
 if __name__ == '__main__':
   origen = input()
