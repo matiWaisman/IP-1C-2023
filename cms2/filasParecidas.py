@@ -4,13 +4,12 @@ from typing import List
 # l: List[int]  <--Este es un ejemplo para una lista de enteros.
 # Respetar esta sintaxis, ya que el CMS dirá que no pasó ningún test si usan otra notación.
 def filasParecidas(matriz: List[List[int]]) -> bool :
-  diferencia_esperada: int = matriz[1][0] - matriz[0][0]
   if len(matriz) == 1 or len(matriz) == 0: return True
+  diferencia_esperada: int = matriz[1][0] - matriz[0][0]
   res: bool = True
   for i in range(0, len(matriz) - 1, 1): 
     for j in range(0, len(matriz[i]), 1): 
       if((matriz[i + 1][j] - matriz[i][j]) != diferencia_esperada): res = False
-
   return res
 
 
