@@ -31,7 +31,51 @@ def cantidad_apariciones(palabra: str, nombre_archivo: str) -> int:
 
 # Ejercicio 2
 
-# def clonar_sin_comentarios(nombre_archivo: str) -> str:
+def clonar_sin_comentarios(nombre_archivo: str):
+    archivo = open(nombre_archivo)
+    lineas = archivo.readlines() 
+    nuevo_archivo = open(nombre_archivo + "sinComentarios", "w")
+    for linea in lineas: 
+        if(not (tiene_numeral(linea))): nuevo_archivo.write(linea)
+    return nuevo_archivo
+
+def tiene_numeral(linea: str) -> bool:
+    res: bool = False 
+    linea_sin_espacios: str = linea.replace(" ","")
+    if(linea_sin_espacios[0] == "#"): res = True
+    return res 
+
+# Ejercicio 3
+
+def archivo_reverso(nombre_archivo: str): 
+    archivo = open(nombre_archivo)
+    lineas = archivo.readlines()  
+    nuevo_archivo = open(nombre_archivo + "reverso", "w")
+    for i in range(len(lineas) - 1, -1, -1): 
+        nuevo_archivo.write(lineas[i])
+    return nuevo_archivo
+
+def agregar_texto_al_final(nombre_archivo: str, texto: str): 
+    archivo = open(nombre_archivo, "a")
+    archivo.write("\n" +"\n"+texto) # No funca 
+    archivo.close()
+
+
+
+# Ejercicio 5 
+
+def agregar_texto_al_principio(nombre_archivo: str, texto: str): 
+    archivo = open(nombre_archivo, "r+")
+    lineas = archivo.readlines() 
+    archivo.seek(0)
+    archivo.write(texto + "\n" + "\n")
+    for linea in lineas: 
+        archivo.write(linea)
+    archivo.close()
+
+
+agregar_texto_al_principio("./archivoP10.txt", "ultima")
+
 
 
 # Ejercicio 8
