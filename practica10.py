@@ -4,6 +4,7 @@ from queue import Queue as Cola
 
 # Ejercicio 1
 
+
 def contar_lineas(nombre_archivo: str) -> int:
     archivo = open(nombre_archivo)
     lineas = archivo.readlines()  # Lista de tuplas
@@ -31,51 +32,71 @@ def cantidad_apariciones(palabra: str, nombre_archivo: str) -> int:
 
 # Ejercicio 2
 
+
 def clonar_sin_comentarios(nombre_archivo: str):
     archivo = open(nombre_archivo)
-    lineas = archivo.readlines() 
+    lineas = archivo.readlines()
     nuevo_archivo = open(nombre_archivo + "sinComentarios", "w")
-    for linea in lineas: 
-        if(not (tiene_numeral(linea))): nuevo_archivo.write(linea)
+    for linea in lineas:
+        if(not (tiene_numeral(linea))):
+            nuevo_archivo.write(linea)
     return nuevo_archivo
 
+
 def tiene_numeral(linea: str) -> bool:
-    res: bool = False 
-    linea_sin_espacios: str = linea.replace(" ","")
-    if(linea_sin_espacios[0] == "#"): res = True
-    return res 
+    res: bool = False
+    linea_sin_espacios: str = linea.replace(" ", "")
+    if(linea_sin_espacios[0] == "#"):
+        res = True
+    return res
 
 # Ejercicio 3
 
-def archivo_reverso(nombre_archivo: str): 
+
+def archivo_reverso(nombre_archivo: str):
     archivo = open(nombre_archivo)
-    lineas = archivo.readlines()  
+    lineas = archivo.readlines()
     nuevo_archivo = open(nombre_archivo + "reverso", "w")
-    for i in range(len(lineas) - 1, -1, -1): 
+    for i in range(len(lineas) - 1, -1, -1):
         nuevo_archivo.write(lineas[i])
     return nuevo_archivo
 
-def agregar_texto_al_final(nombre_archivo: str, texto: str): 
+# Ejercicio 4
+
+
+def agregar_texto_al_final(nombre_archivo: str, texto: str):
     archivo = open(nombre_archivo, "a")
-    archivo.write("\n" +"\n"+texto) # No funca 
+    archivo.write("\n" + "\n"+texto)
     archivo.close()
 
+# Ejercicio 5
 
 
-# Ejercicio 5 
-
-def agregar_texto_al_principio(nombre_archivo: str, texto: str): 
+def agregar_texto_al_principio(nombre_archivo: str, texto: str):
     archivo = open(nombre_archivo, "r+")
-    lineas = archivo.readlines() 
+    lineas = archivo.readlines()
     archivo.seek(0)
     archivo.write(texto + "\n" + "\n")
-    for linea in lineas: 
+    for linea in lineas:
         archivo.write(linea)
     archivo.close()
 
 
-agregar_texto_al_principio("./archivoP10.txt", "ultima")
+# Ejercicio 6
 
+def leer_archivo_binario(nombre_archivo: str) -> list[(str)]:
+    res: list[(str)] = []
+    archivo = open(nombre_archivo, "rb")
+    lineas = archivo.readlines()
+    for linea in lineas:
+        if(len(linea) >= 5):
+            res.append(linea)
+    archivo.close()
+    return res
+
+# Ejercicio 7
+
+# def calcular_promedio_csv(nombre_archivo: str, lu: str) -> int: Espero a ver bien diccionarios y paso el csv a diccionario para parsear
 
 
 # Ejercicio 8
@@ -93,13 +114,16 @@ def generar_numero_random(desde: int, hasta: int) -> int:
 
 # Ejercicio 9
 
-
 # Para imprimirlo hay que usar .queue despues de llamar a la funcion
+
+
 def generar_pila_nros_al_azar(n: int, desde: int, hasta: int) -> Pila([(int)]):
     res: Pila([(int)]) = Pila([(int)])
     for i in range(0, n, 1):
         res.put(generar_numero_random(desde, hasta))
     return res
+
+# Ejercicio 10
 
 
 def cantidad_elementos_pila(
@@ -114,8 +138,8 @@ def cantidad_elementos_pila_manual(p: Pila([(any)])) -> int:
         copia_pila.get()
     return res
 
+# Ejercicio 11
 
-# implementar con un for que corte uno antes
 
 def buscar_maximo_de_pila_for(p:  Pila([(int)])) -> int:
     res: int = 0
@@ -154,19 +178,35 @@ def copiar_pila(p: Pila()) -> Pila():
     return nueva_pila
 
 
-p = Pila()
-p.put(1)
-p.put(2)
-p.put(3)
-p.put(4)
-p.put(5)
+# Ejercicio 12
 
-print(cantidad_elementos_pila_manual(p))
+# Preguntar mi solucion si es lo esperado
+def esta_bien_balanceada(s: str) -> bool:
+    res: bool = False
+    p: Pila() = pasar_string_a_pila(s)
+    contador_parentesis: int = 0
+    for i in range(0, p.qsize(), 1):
+        valor_actual: str = p.get()
+        if(valor_actual == "("):
+            contador_parentesis += 1
+        if(valor_actual == ")"):
+            contador_parentesis -= 1
+    if(contador_parentesis == 0):
+        res = True
+    return res
+
+
+def pasar_string_a_pila(s: str) -> Pila():
+    res: Pila() = Pila()
+    for c in s:
+        res.put(c)
+    return res
 
 # Ejercicio 13
 
-
 # Para imprimirlo hay que usar .queue despues de llamar a la funcion
+
+
 def generar_cola_nros_al_azar(n: int, desde: int, hasta: int) -> Cola():
     res: Cola() = Cola()
     for i in range(0, n, 1):
@@ -176,7 +216,102 @@ def generar_cola_nros_al_azar(n: int, desde: int, hasta: int) -> Cola():
 # Ejercicio 14
 
 
-def cantidad_elementos_cola(c: Cola([(any)])) -> int: return c.qsize()  # len(c) no funciona
+def cantidad_elementos_cola(
+    c: Cola([(any)])) -> int: return c.qsize()  # len(c) no funciona
+
+
+def cantidad_elementos_cola_manual(c: Cola([(any)])) -> int:
+    res: int = 0
+    copia_cola = copiar_cola(c)
+    while(not copia_cola.empty()):
+        res += 1
+        copia_cola.get()
+    return res
+
+
+def copiar_cola(c: Cola()) -> Cola():
+    lista_intermedia = []
+    nueva_cola = Cola()
+    while(c.empty() == False):
+        lista_intermedia.append(c.get())
+    for i in range(0, len(lista_intermedia), 1):
+        nueva_cola.put(lista_intermedia[i])
+        c.put(lista_intermedia[i])
+    return nueva_cola
+
+# Ejercicio 15
+
+
+def buscar_maximo_de_cola_while(c: Cola([(int)])) -> int:
+    res: int = 0
+    copia_cola = copiar_cola(c)
+    valor_actual: int = copia_cola.get()
+    termino: bool = copia_cola.empty()
+    while(termino != True):
+        if(valor_actual > res):
+            res = valor_actual
+        valor_actual = copia_cola.get()
+        if(copia_cola.empty()):
+            termino = True
+            if(valor_actual > res):
+                res = valor_actual
+    return res
+
+
+def buscar_maximo_de_cola_for(q:  Cola([(int)])) -> int:
+    res: int = 0
+    copia_cola = copiar_cola(q)
+    for i in range(0, copia_cola.qsize(), 1):
+        valor_actual: int = copia_cola.get()
+        if(valor_actual > res):
+            res = valor_actual
+    return res
+
+
+# Ejercicio 16
+
+def armar_secuencia_de_bingo() -> Cola[int]:
+    res: Cola[int] = Cola()
+    for i in range(0, 12, 1):
+        numero_actual: int = generar_numero_random(0, 99)
+        while(pertenece_cola(numero_actual, res)):  # Para evitar repetidos
+            numero_actual = generar_numero_random(0, 99)
+        res.put(generar_numero_random(0, 99))
+    return res
+
+
+def pertenece_cola(n: int, q:  Cola([(int)])) -> bool:
+    res: bool = False
+    copia_cola: Cola([(int)]) = copiar_cola(q)
+    for i in range(0, copia_cola.qsize(), 1):
+        valor_actual: int = copia_cola.get()
+        if(valor_actual == n):
+            res = True
+    return res
+
+
+# def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: # Preguntar como se juega al bingo y si uso una lista o una lista de listas
+
+# Ejercicio 17
+
+def numero_pacientes_urgentes(q: Cola[(int, str, str)]) -> int:
+    res: int = 0
+    copia_cola: Cola([(int, str, str)]) = copiar_cola(q)
+    for i in range(0, copia_cola.qsize(), 1):
+        valor_actual = copia_cola.get()
+        if(valor_actual[0] >= 3):
+            res += 1
+    return res
+
+
+c = Cola()
+c.put(67)
+c.put(2)
+c.put(5)
+c.put(4)
+bingo = armar_secuencia_de_bingo()
+print(bingo.queue)
+
 
 # Ejercicio 18
 
