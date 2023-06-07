@@ -96,10 +96,26 @@ def leer_archivo_binario(nombre_archivo: str) -> list[(str)]:
 
 # Ejercicio 7
 
-# def calcular_promedio_csv(nombre_archivo: str, lu: str) -> int: Espero a ver bien diccionarios y paso el csv a diccionario para parsear
+# Asumiendo que la primer linea es el encabezado
+
+
+def calcular_promedio_csv(nombre_archivo: str, lu: str) -> float:
+    res: float = 0
+    acumulador_notas: float = 0
+    cantidad_notas: int = 0
+    archivo = open(nombre_archivo, "r")
+    lineas = archivo.readlines()
+    for i in range(1, len(lineas), 1):
+        valores = lineas[i].strip().split(',')
+        if(valores[0] == lu):
+            acumulador_notas += float(valores[3])
+            cantidad_notas += 1
+    res = acumulador_notas/cantidad_notas
+    return res
 
 
 # Ejercicio 8
+
 
 def generar_lista_nros_al_azar(n: int, desde: int, hasta: int) -> list([int]):
     res: list[(int)] = []
@@ -327,12 +343,101 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
-                    res[acumulador] = 1  # Tengo que inicializarlo
+                    res[acumulador] = 1  # Hay que inicializarlo
                 acumulador = 0
     return res
 
 
-def la_palabra_que_mas_aparece(nombre_archivo: str) -> str:
+# Ejercicio 19
+
+# Asumiendo que la primer linea es el encabezado
+def pasar_csv_a_dict(nombre_archivo: str) -> dict:
+    res: dict = {}
+    archivo = open(nombre_archivo, "r")
+    lineas = archivo.readlines()
+    claves: list([str]) = armar_lista_claves(lineas[0])
+    for i in range(1, len(lineas), 1):  # Accedo a las lineas
+        linea_actual: list([str]) = lineas[i].strip().split(',')
+        lu_alumno: str = linea_actual[0]
+        valores_linea_actual: dict = armar_dict_valores(linea_actual, claves)
+        if(lu_alumno in res):
+            # No funciona, preguntar como terminarlo se me ocurren metodos manuales de hacerlo pero son demasiado largos, tiene que haber alguna manera de hacer un append facilito
+            res[lu_alumno].append(valores_linea_actual)
+        if (lu_alumno not in res):
+            res[lu_alumno] = valores_linea_actual  # Hay que inicializarlo
+    return res
+
+""""
+Modelo respuesta que quiero: 
+{
+    "202101": [
+        {
+            "materia": "Matemáticas",
+            "fecha": "2023-05-01",
+            "nota": 8.5
+        },
+        {
+            "materia": "Programación",
+            "fecha": "2023-05-15",
+            "nota": 7.2
+        },
+        {
+            "materia": "Historia",
+            "fecha": "2023-05-15",
+            "nota": 6.5
+        }
+    ],
+    "202102": [
+        {
+            "materia": "Inglés",
+            "fecha": "2023-04-28",
+            "nota": 9.1
+        }
+    ],
+    "202103": [
+        {
+            "materia": "Física",
+            "fecha": "2023-05-10",
+            "nota": 6.8
+        },
+        {
+            "materia": "Historia",
+            "fecha": "2023-04-30",
+            "nota": 7.5
+        }
+    ],
+    "202104": [
+        {
+            "materia": "Economía",
+            "fecha": "2023-05-06",
+            "nota": 8.9
+        }
+    ]
+}
+"""
+
+
+def armar_dict_valores(l: list([str]), claves: list([str])) -> dict:
+    res: dict = {}
+    for i in range(1, len(l), 1):
+        res[claves[i]] = l[i]
+    return res
+
+
+def armar_lista_claves(linea: list([str])) -> list([str]):
+    res: list([str]) = []
+    valores = linea.strip().split(',')
+    for i in range(0, len(valores), 1):
+        res.append(valores[i])
+    return res
+
+
+print(pasar_csv_a_dict("./notas.csv"))
+
+# Ejercicio 20
+
+
+def la_palabra_mas_frecuente(nombre_archivo: str) -> str:
     res: str = ""
     d: dict = calcular_cantidad_apariciones(nombre_archivo)
     numero_mayor_cantidad: int = calcular_numero_que_mas_aparece(d)
@@ -363,6 +468,6 @@ def calcular_cantidad_apariciones(nombre_archivo: str) -> dict:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
-                    res[acumulador] = 1  # Tengo que inicializarlo
+                    res[acumulador] = 1  # Hay que inicializarlo
                 acumulador = ""
     return res
