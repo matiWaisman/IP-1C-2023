@@ -310,9 +310,59 @@ c.put(2)
 c.put(5)
 c.put(4)
 bingo = armar_secuencia_de_bingo()
-print(bingo.queue)
 
 
 # Ejercicio 18
 
-# def agrupar_por_longitud(nombre_archivo: str) -> dict:
+def agrupar_por_longitud(nombre_archivo: str) -> dict:
+    res: dict = {}
+    archivo = open(nombre_archivo)
+    lineas = archivo.readlines()
+    for linea in lineas:
+        acumulador: int = 0
+        for caracter in linea:
+            if(caracter != " "):
+                acumulador += 1
+            if(caracter == " "):
+                if acumulador in res:
+                    res[acumulador] += 1
+                else:
+                    res[acumulador] = 1  # Tengo que inicializarlo
+                acumulador = 0
+    return res
+
+
+def la_palabra_que_mas_aparece(nombre_archivo: str) -> str:
+    res: str = ""
+    d: dict = calcular_cantidad_apariciones(nombre_archivo)
+    numero_mayor_cantidad: int = calcular_numero_que_mas_aparece(d)
+    for clave in d:
+        if(d[clave] == numero_mayor_cantidad):
+            res = clave
+    return res
+
+
+def calcular_numero_que_mas_aparece(d: dict) -> int:
+    res: int = 0
+    for clave in d:
+        if(d[clave] > res):
+            res = d[clave]
+    return res
+
+
+def calcular_cantidad_apariciones(nombre_archivo: str) -> dict:
+    res: dict = {}
+    archivo = open(nombre_archivo)
+    lineas = archivo.readlines()
+    for linea in lineas:
+        acumulador: str = ""
+        for caracter in linea:
+            if(caracter != " "):
+                acumulador = acumulador + caracter
+            if(caracter == " "):
+                if acumulador in res:
+                    res[acumulador] += 1
+                else:
+                    res[acumulador] = 1  # Tengo que inicializarlo
+                acumulador = ""
+    return res
