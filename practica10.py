@@ -196,26 +196,17 @@ def copiar_pila(p: Pila()) -> Pila():
 
 # Ejercicio 12
 
-# Preguntar mi solucion si es lo esperado
-def esta_bien_balanceada(s: str) -> bool:
-    res: bool = False
-    p: Pila() = pasar_string_a_pila(s)
-    contador_parentesis: int = 0
-    for i in range(0, p.qsize(), 1):
-        valor_actual: str = p.get()
-        if(valor_actual == "("):
-            contador_parentesis += 1
-        if(valor_actual == ")"):
-            contador_parentesis -= 1
-    if(contador_parentesis == 0):
-        res = True
-    return res
-
-
-def pasar_string_a_pila(s: str) -> Pila():
-    res: Pila() = Pila()
-    for c in s:
-        res.put(c)
+def esta_bien_balancea(s: str) -> bool: 
+    res: bool = True
+    pila_abiertos: Pila() = Pila()
+    for letra in s: 
+        if(letra == "("): 
+            pila_abiertos.put(letra)
+        if(letra == ")"):
+            if(pila_abiertos.empty()): 
+                res = False
+            else: 
+                pila_abiertos.get()
     return res
 
 # Ejercicio 13
@@ -334,12 +325,13 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo)
     lineas = archivo.readlines()
+    archivo.close()
     for linea in lineas:
         acumulador: int = 0
         for caracter in linea:
             if(caracter != " "):
                 acumulador += 1
-            if(caracter == " "):
+            else:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
@@ -355,16 +347,17 @@ def pasar_csv_a_dict(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo, "r")
     lineas = archivo.readlines()
-    claves: list([str]) = armar_lista_claves(lineas[0])
+    archivo.close()
+    claves_internas: list([str]) = armar_lista_claves(lineas[0])
     for i in range(1, len(lineas), 1):  # Accedo a las lineas
         linea_actual: list([str]) = lineas[i].strip().split(',')
         lu_alumno: str = linea_actual[0]
-        valores_linea_actual: dict = armar_dict_valores(linea_actual, claves)
+        valores_linea_actual: dict = armar_dict_valores(linea_actual, claves_internas)
         if(lu_alumno in res):
             # No funciona, preguntar como terminarlo se me ocurren metodos manuales de hacerlo pero son demasiado largos, tiene que haber alguna manera de hacer un append facilito
             res[lu_alumno].append(valores_linea_actual)
-        if (lu_alumno not in res):
-            res[lu_alumno] = valores_linea_actual  # Hay que inicializarlo
+        else:
+            res[lu_alumno] = [valores_linea_actual]  # Hay que inicializarlo
     return res
 
 """"
@@ -459,12 +452,13 @@ def calcular_cantidad_apariciones(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo)
     lineas = archivo.readlines()
+    archivo.close()
     for linea in lineas:
         acumulador: str = ""
         for caracter in linea:
             if(caracter != " "):
                 acumulador = acumulador + caracter
-            if(caracter == " "):
+            else:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
