@@ -306,8 +306,6 @@ def armar_carton_bingo() -> list([int]): # No va a ser una matriz como deberia, 
 
 def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: 
     res: int = 0
-    print(bolillero.queue)
-    print(carton)
     while(len(carton) > 0): 
         bola_actual: int = bolillero.get()
         if(pertenece_lista(carton, bola_actual)): 
@@ -331,7 +329,6 @@ def eliminar_de_lista(l: list([int]), e: int) -> list([int]):
             res.append(l[i])
     return res
 
-print(jugar_carton_de_bingo(armar_carton_bingo(), armar_secuencia_de_bingo()))
 
 # Ejercicio 17
 
@@ -343,14 +340,6 @@ def numero_pacientes_urgentes(q: Cola[(int, str, str)]) -> int:
         if(valor_actual[0] >= 3):
             res += 1
     return res
-
-
-c = Cola()
-c.put(67)
-c.put(2)
-c.put(5)
-c.put(4)
-bingo = armar_secuencia_de_bingo()
 
 
 # Ejercicio 18
@@ -389,7 +378,6 @@ def pasar_csv_a_dict(nombre_archivo: str) -> dict:
         lu_alumno: str = linea_actual[0]
         valores_linea_actual: dict = armar_dict_valores(linea_actual, claves_internas)
         if(lu_alumno in res):
-            # No funciona, preguntar como terminarlo se me ocurren metodos manuales de hacerlo pero son demasiado largos, tiene que haber alguna manera de hacer un append facilito
             res[lu_alumno].append(valores_linea_actual)
         else:
             res[lu_alumno] = [valores_linea_actual]  # Hay que inicializarlo
