@@ -279,13 +279,12 @@ def buscar_maximo_de_cola_for(q:  Cola([(int)])) -> int:
 
 def armar_secuencia_de_bingo() -> Cola[int]:
     res: Cola[int] = Cola()
-    for i in range(0, 12, 1):
+    for i in range(0, 100, 1):
         numero_actual: int = generar_numero_random(0, 99)
         while(pertenece_cola(numero_actual, res)):  # Para evitar repetidos
             numero_actual = generar_numero_random(0, 99)
-        res.put(generar_numero_random(0, 99))
+        res.put(numero_actual)
     return res
-
 
 def pertenece_cola(n: int, q:  Cola([(int)])) -> bool:
     res: bool = False
@@ -296,8 +295,43 @@ def pertenece_cola(n: int, q:  Cola([(int)])) -> bool:
             res = True
     return res
 
+def armar_carton_bingo() -> list([int]): # No va a ser una matriz como deberia, uso una lista de 15 y cuando me quede sin 15 gano 
+    res: list([int]) = []
+    for i in range(0, 15, 1 ):
+        numero_actual: int =  generar_numero_random(0, 99)
+        while(pertenece_lista(res, numero_actual)): 
+            numero_actual = generar_numero_random(0, 99)
+        res.append(numero_actual)
+    return res
 
-# def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: # Preguntar como se juega al bingo y si uso una lista o una lista de listas
+def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: 
+    res: int = 0
+    print(bolillero.queue)
+    print(carton)
+    while(len(carton) > 0): 
+        bola_actual: int = bolillero.get()
+        if(pertenece_lista(carton, bola_actual)): 
+            carton = eliminar_de_lista(carton, bola_actual)
+        if(len(carton) > 0): # Agrego esto porque si no suma una jugada de mas
+            res += 1  
+    return res
+
+
+def pertenece_lista(l: list([int]), e: int) -> bool: 
+    res: bool = False
+    for i in range(0, len(l), 1):
+        if(l[i] == e): res = True
+    return res
+
+
+def eliminar_de_lista(l: list([int]), e: int) -> list([int]): 
+    res: list([int]) = []
+    for i in range(0, len(l), 1): 
+        if(l[i] != e): 
+            res.append(l[i])
+    return res
+
+print(jugar_carton_de_bingo(armar_carton_bingo(), armar_secuencia_de_bingo()))
 
 # Ejercicio 17
 
@@ -342,6 +376,7 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
 
 # Ejercicio 19
 
+# Esta impementacion no es la manera para resolver el ejercicio, lo que hago es pasar el csv a diccionario y ahi resolver el ejercicio en vez de leyendo un csv leyendo un dict
 # Asumiendo que la primer linea es el encabezado
 def pasar_csv_a_dict(nombre_archivo: str) -> dict:
     res: dict = {}
@@ -423,9 +458,6 @@ def armar_lista_claves(linea: list([str])) -> list([str]):
     for i in range(0, len(valores), 1):
         res.append(valores[i])
     return res
-
-
-print(pasar_csv_a_dict("./notas.csv"))
 
 # Ejercicio 20
 
