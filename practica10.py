@@ -196,26 +196,17 @@ def copiar_pila(p: Pila()) -> Pila():
 
 # Ejercicio 12
 
-# Preguntar mi solucion si es lo esperado
-def esta_bien_balanceada(s: str) -> bool:
-    res: bool = False
-    p: Pila() = pasar_string_a_pila(s)
-    contador_parentesis: int = 0
-    for i in range(0, p.qsize(), 1):
-        valor_actual: str = p.get()
-        if(valor_actual == "("):
-            contador_parentesis += 1
-        if(valor_actual == ")"):
-            contador_parentesis -= 1
-    if(contador_parentesis == 0):
-        res = True
-    return res
-
-
-def pasar_string_a_pila(s: str) -> Pila():
-    res: Pila() = Pila()
-    for c in s:
-        res.put(c)
+def esta_bien_balancea(s: str) -> bool: 
+    res: bool = True
+    pila_abiertos: Pila() = Pila()
+    for letra in s: 
+        if(letra == "("): 
+            pila_abiertos.put(letra)
+        if(letra == ")"):
+            if(pila_abiertos.empty()): 
+                res = False
+            else: 
+                pila_abiertos.get()
     return res
 
 # Ejercicio 13
@@ -288,13 +279,12 @@ def buscar_maximo_de_cola_for(q:  Cola([(int)])) -> int:
 
 def armar_secuencia_de_bingo() -> Cola[int]:
     res: Cola[int] = Cola()
-    for i in range(0, 12, 1):
+    for i in range(0, 100, 1):
         numero_actual: int = generar_numero_random(0, 99)
         while(pertenece_cola(numero_actual, res)):  # Para evitar repetidos
             numero_actual = generar_numero_random(0, 99)
-        res.put(generar_numero_random(0, 99))
+        res.put(numero_actual)
     return res
-
 
 def pertenece_cola(n: int, q:  Cola([(int)])) -> bool:
     res: bool = False
@@ -305,8 +295,40 @@ def pertenece_cola(n: int, q:  Cola([(int)])) -> bool:
             res = True
     return res
 
+def armar_carton_bingo() -> list([int]): # No va a ser una matriz como deberia, uso una lista de 15 y cuando me quede sin 15 gano 
+    res: list([int]) = []
+    for i in range(0, 15, 1 ):
+        numero_actual: int =  generar_numero_random(0, 99)
+        while(pertenece_lista(res, numero_actual)): 
+            numero_actual = generar_numero_random(0, 99)
+        res.append(numero_actual)
+    return res
 
-# def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: # Preguntar como se juega al bingo y si uso una lista o una lista de listas
+def jugar_carton_de_bingo(carton: list([int]), bolillero:  Cola([(int)])) -> int: 
+    res: int = 0
+    while(len(carton) > 0): 
+        bola_actual: int = bolillero.get()
+        if(pertenece_lista(carton, bola_actual)): 
+            carton = eliminar_de_lista(carton, bola_actual)
+        if(len(carton) > 0): # Agrego esto porque si no suma una jugada de mas
+            res += 1  
+    return res
+
+
+def pertenece_lista(l: list([int]), e: int) -> bool: 
+    res: bool = False
+    for i in range(0, len(l), 1):
+        if(l[i] == e): res = True
+    return res
+
+
+def eliminar_de_lista(l: list([int]), e: int) -> list([int]): 
+    res: list([int]) = []
+    for i in range(0, len(l), 1): 
+        if(l[i] != e): 
+            res.append(l[i])
+    return res
+
 
 # Ejercicio 17
 
@@ -320,26 +342,19 @@ def numero_pacientes_urgentes(q: Cola[(int, str, str)]) -> int:
     return res
 
 
-c = Cola()
-c.put(67)
-c.put(2)
-c.put(5)
-c.put(4)
-bingo = armar_secuencia_de_bingo()
-
-
 # Ejercicio 18
 
 def agrupar_por_longitud(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo)
     lineas = archivo.readlines()
+    archivo.close()
     for linea in lineas:
         acumulador: int = 0
         for caracter in linea:
             if(caracter != " "):
                 acumulador += 1
-            if(caracter == " "):
+            else:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
@@ -350,21 +365,22 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
 
 # Ejercicio 19
 
+# Esta impementacion no es la manera para resolver el ejercicio, lo que hago es pasar el csv a diccionario y ahi resolver el ejercicio en vez de leyendo un csv leyendo un dict
 # Asumiendo que la primer linea es el encabezado
 def pasar_csv_a_dict(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo, "r")
     lineas = archivo.readlines()
-    claves: list([str]) = armar_lista_claves(lineas[0])
+    archivo.close()
+    claves_internas: list([str]) = armar_lista_claves(lineas[0])
     for i in range(1, len(lineas), 1):  # Accedo a las lineas
         linea_actual: list([str]) = lineas[i].strip().split(',')
         lu_alumno: str = linea_actual[0]
-        valores_linea_actual: dict = armar_dict_valores(linea_actual, claves)
+        valores_linea_actual: dict = armar_dict_valores(linea_actual, claves_internas)
         if(lu_alumno in res):
-            # No funciona, preguntar como terminarlo se me ocurren metodos manuales de hacerlo pero son demasiado largos, tiene que haber alguna manera de hacer un append facilito
             res[lu_alumno].append(valores_linea_actual)
-        if (lu_alumno not in res):
-            res[lu_alumno] = valores_linea_actual  # Hay que inicializarlo
+        else:
+            res[lu_alumno] = [valores_linea_actual]  # Hay que inicializarlo
     return res
 
 """"
@@ -431,9 +447,6 @@ def armar_lista_claves(linea: list([str])) -> list([str]):
         res.append(valores[i])
     return res
 
-
-print(pasar_csv_a_dict("./notas.csv"))
-
 # Ejercicio 20
 
 
@@ -459,12 +472,13 @@ def calcular_cantidad_apariciones(nombre_archivo: str) -> dict:
     res: dict = {}
     archivo = open(nombre_archivo)
     lineas = archivo.readlines()
+    archivo.close()
     for linea in lineas:
         acumulador: str = ""
         for caracter in linea:
             if(caracter != " "):
                 acumulador = acumulador + caracter
-            if(caracter == " "):
+            else:
                 if acumulador in res:
                     res[acumulador] += 1
                 else:
