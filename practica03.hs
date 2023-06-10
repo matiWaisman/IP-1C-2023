@@ -82,7 +82,8 @@ ambosSon0G x y
 
 -- Usando Pattern Matching
 ambosSon0P :: Float -> Float -> Bool
-ambosSon0P 0 0 = True -- Como uso el otherwise aca? Asi no tengo que hacer los 4 casos
+ambosSon0P 0 0 = True 
+ambosSon0P _ _ = False
 
 -- Punto F
 
