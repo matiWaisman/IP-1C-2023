@@ -61,17 +61,13 @@ quitarTodos e (x : xs)
   | x == e = quitarTodos e xs
   | otherwise = x : quitarTodos e xs
 
-eliminarRepetidos :: (Eq t) => [t] -> [t] -- No funciona adecuadamente
+
+eliminarRepetidos:: (Eq t) => [t] -> [t]
 eliminarRepetidos [] = []
-eliminarRepetidos (x : xs)
-  | pertenece x xs = eliminarRepetidos (eliminarRepetido x xs)
-  | otherwise = x : eliminarRepetidos xs
-  where
-    eliminarRepetido :: (Eq t) => t -> [t] -> [t]
-    eliminarRepetido _ [] = []
-    eliminarRepetido e (y : ys)
-      | e == y = eliminarRepetido e ys
-      | otherwise = y : eliminarRepetido e ys
+eliminarRepetidos (x:xs)
+  | pertenece x xs = eliminarRepetidos xs
+  | otherwise = x: eliminarRepetidos xs
+
 
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos [x] y = True
@@ -225,7 +221,7 @@ sumaAcumulada [] = []
 sumaAcumulada [x] = [x]
 sumaAcumulada (x : y : xs) = x : sumaAcumulada (x + y : xs)
 
-descomponerEnPrimos :: [Integer] -> [[Integer]] -- Preguntar si esta bien
+descomponerEnPrimos :: [Integer] -> [[Integer]] 
 descomponerEnPrimos [] = []
 descomponerEnPrimos [x] = [calcularDescomposicion x (x - 1)]
 descomponerEnPrimos (x : xs) = calcularDescomposicion x (x - 1) : descomponerEnPrimos xs
@@ -275,3 +271,7 @@ productoUnElemento :: Integer -> Set Integer -> Set (Integer, Integer)
 productoUnElemento x [] = []
 productoUnElemento x [y] = [(x, y)]
 productoUnElemento x (y : ys) = (x, y) : productoUnElemento x ys
+
+ 
+
+
