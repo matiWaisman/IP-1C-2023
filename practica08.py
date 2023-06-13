@@ -2,18 +2,21 @@ import random
 
 # Ejercicio 1
 
-def pertenece(l: list([int]), e: int) -> bool: 
+
+def pertenece(l: list([int]), e: int) -> bool:
     res: bool = False
     for i in range(0, len(l), 1):
-        if(l[i] == e): res = True
+        if(l[i] == e):
+            res = True
     return res
 
-def pertenece_while(l: list([str]), e: str) -> bool: 
+
+def pertenece_while(l: list([str]), e: str) -> bool:
     res: bool = False
     sigo: bool = True
     i: int = 0
-    while (i < len(l) and sigo == True): 
-        if(l[i] == e): 
+    while (i < len(l) and sigo == True):
+        if(l[i] == e):
             res = True
             sigo = False
         i += 1
@@ -21,24 +24,28 @@ def pertenece_while(l: list([str]), e: str) -> bool:
 
 # Preguntar como hacer para que la lista y el elemento sean del mismo tipo de dato generico como haciamos en haskell
 
-def divide_a_todos(l: list([int]), e: int) -> bool: 
+
+def divide_a_todos(l: list([int]), e: int) -> bool:
     res: bool = False
     sigo: bool = True
     i: int = 0
     while (i < len(l) and sigo == True):
-        if(i == len(l) - 1 and l[i] % e == 0): res = True
-        if(l[i] % e != 0): sigo = False
-        i += 1 
+        if(i == len(l) - 1 and l[i] % e == 0):
+            res = True
+        if(l[i] % e != 0):
+            sigo = False
+        i += 1
     return res
 
 
-def sumaTotal (l: list([int])) -> int:
+def sumaTotal(l: list([int])) -> int:
     res: int = 0
-    for i in range(0,len(l),1):
+    for i in range(0, len(l), 1):
         res += l[i]
     return res
 
-def ordenados (l: list([int])) -> bool: 
+
+def ordenados(l: list([int])) -> bool:
     res: bool = False
     i: int = 1
     sigo: bool = True
@@ -50,187 +57,222 @@ def ordenados (l: list([int])) -> bool:
         i += 1
     return res
 
-def alguna_palabra_larga(l: list([str]), longitud: int) -> bool: 
+
+def alguna_palabra_larga(l: list([str]), longitud: int) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
     while i < len(l) and sigo == True:
-        if(len(l[i]) > longitud): 
+        if(len(l[i]) > longitud):
             res = True
             sigo = False
         i += 1
     return res
-    
 
-def es_palindroma(palabra: str) -> bool: # Se podria usar returns en vez de los ifs para hacer mas eficiente, pero se nos indico que solo puede haber un return
+
+# Se podria usar returns en vez de los ifs para hacer mas eficiente, pero se nos indico que solo puede haber un return
+def es_palindroma(palabra: str) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
-    while i <= ((len(palabra) - 1)  / 2) and sigo == True:
-        if(palabra[i] != palabra[len(palabra) - 1 - i]): 
+    while i <= ((len(palabra) - 1) / 2) and sigo == True:
+        if(palabra[i] != palabra[len(palabra) - 1 - i]):
             sigo = False
-        if(i == ((len(palabra) - 1) / 2) and sigo == True): # Este funciona para cantidad de letras impares
+        # Este funciona para cantidad de letras impares
+        if(i == ((len(palabra) - 1) / 2) and sigo == True):
             res = True
-        if(i + 1 == (len(palabra) / 2) and sigo == True): # Este funciona para cantidad de letras pares
+        # Este funciona para cantidad de letras pares
+        if(i + 1 == (len(palabra) / 2) and sigo == True):
             res = True
         i += 1
     return res
 
-def es_palindroma_lenta(palabra: str) -> bool: return (palabra == invertir_palabra(palabra)) 
 
-def evaluar_contra(palabra:str) -> str: 
+def es_palindroma_lenta(
+    palabra: str) -> bool: return (palabra == invertir_palabra(palabra))
+
+
+def evaluar_contra(palabra: str) -> str:
     res: str = "Amarilla"
-    if(len(palabra) < 5): res = "Roja"
-    if(len(palabra) > 8 and tiene_letra_mayuscula and tiene_letra_minuscula and tiene_letra_minuscula): res ="Verde"
+    if(len(palabra) < 5):
+        res = "Roja"
+    if(len(palabra) > 8 and tiene_letra_mayuscula and tiene_letra_minuscula and tiene_letra_minuscula):
+        res = "Verde"
     return res
 
-def tiene_letra_minuscula(palabra:str) -> bool:
+
+def tiene_letra_minuscula(palabra: str) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
-    while i < len(palabra) and sigo == True: 
-        if palabra[i].islower(): 
+    while i < len(palabra) and sigo == True:
+        if palabra[i].islower():
             res = True
             sigo = False
         i += 1
     return res
 
-def tiene_letra_mayuscula(palabra:str) -> bool:
+
+def tiene_letra_mayuscula(palabra: str) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
-    while i < len(palabra) and sigo == True: 
-        if palabra[i].isupper(): 
+    while i < len(palabra) and sigo == True:
+        if palabra[i].isupper():
             res = True
             sigo = False
         i += 1
     return res
 
-def tiene_letra_numerica(palabra:str) -> bool:
+
+def tiene_letra_numerica(palabra: str) -> bool:
     res: bool = False
     i: int = 0
     sigo: bool = True
-    while i < len(palabra) and sigo == True: 
-        if palabra[i].isnumeric(): 
+    while i < len(palabra) and sigo == True:
+        if palabra[i].isnumeric():
             res = True
             sigo = False
         i += 1
     return res
 
-def saldo_bancario(historial: list([(str,int)])) -> int:
+
+def saldo_bancario(historial: list([(str, int)])) -> int:
     res: int = 0
     for i in range(0, len(historial), 1):
         if(historial[i][0] == "I"):
             res += historial[i][1]
-        if(historial[i][0] == "R"): 
+        if(historial[i][0] == "R"):
             res -= historial[i][1]
     return res
 
-def tiene_3_vocales_distintas(palabra:str) -> bool: 
+
+def tiene_3_vocales_distintas(palabra: str) -> bool:
     res: bool = False
     palabra_en_lower: str = palabra.lower()
-    vocales: list([str]) = ["a","e","i","o","u"]
+    vocales: list([str]) = ["a", "e", "i", "o", "u"]
     vocales_en_uso: list([str]) = []
     i: int = 0
     sigo: bool = True
     while i < len(palabra) and sigo == True:
-        if(pertenece_while(vocales, palabra_en_lower[i]) and not pertenece_while(vocales_en_uso, palabra_en_lower[i])): 
+        if(pertenece_while(vocales, palabra_en_lower[i]) and not pertenece_while(vocales_en_uso, palabra_en_lower[i])):
             vocales_en_uso.append(palabra_en_lower[i])
-        if(len(vocales_en_uso) == 3): sigo = False
+        if(len(vocales_en_uso) == 3):
+            sigo = False
         i += 1
-    if(len(vocales_en_uso) == 3): res = True
+    if(len(vocales_en_uso) == 3):
+        res = True
     return res
 
-# Ejercicio 2 
+# Ejercicio 2
 
-lista = [1,2,3,4,5] 
 
-def borrar_pares_de_lista_modificando_parametro(l: list([int])) -> list([int]):  
-    res = l  
-    for i in range(0,len(res),1):
+lista = [1, 2, 3, 4, 5]
+
+
+def borrar_pares_de_lista_modificando_parametro(l: list([int])) -> list([int]):
+    res = l
+    for i in range(0, len(res), 1):
         if res[i] % 2 == 0:
             res[i] = 0
     return res
 
-def borrar_pares_de_lista_sin_modificar_original(l: list([int])) -> list([int]): 
-    res = l[:]  
-    for i in range(0,len(res),1):
+
+def borrar_pares_de_lista_sin_modificar_original(l: list([int])) -> list([int]):
+    res = l[:]
+    for i in range(0, len(res), 1):
         if res[i] % 2 == 0:
             res[i] = 0
     return res
 
-def borrar_vocales(palabra: str) -> str: 
-    vocales: list[(str)] = ["a","e","i","o","u"]
-    palabra_en_lower: str = palabra[:].lower() 
+
+def borrar_vocales(palabra: str) -> str:
+    vocales: list[(str)] = ["a", "e", "i", "o", "u"]
+    palabra_en_lower: str = palabra[:].lower()
     res: str = ""
-    for i in range(0,len(palabra_en_lower),1):
-        if(not pertenece_while(vocales, palabra_en_lower[i])): 
+    for i in range(0, len(palabra_en_lower), 1):
+        if(not pertenece_while(vocales, palabra_en_lower[i])):
             res += palabra[i]
     return res
 
-def reemplazar_vocales(palabra: str) -> str: 
-    vocales: list[(str)] = ["a","e","i","o","u"]
-    palabra_en_lower: str = palabra[:].lower() 
+
+def reemplazar_vocales(palabra: str) -> str:
+    vocales: list[(str)] = ["a", "e", "i", "o", "u"]
+    palabra_en_lower: str = palabra[:].lower()
     res: str = ""
-    for i in range(0,len(palabra_en_lower),1):
-        if(pertenece_while(vocales, palabra_en_lower[i])): 
+    for i in range(0, len(palabra_en_lower), 1):
+        if(pertenece_while(vocales, palabra_en_lower[i])):
             res += "_"
-        else: res += palabra[i]
+        else:
+            res += palabra[i]
     return res
-        
-def invertir_palabra(palabra: str) -> str: 
+
+
+def invertir_palabra(palabra: str) -> str:
     res: str = ""
-    for i in range(len(palabra) - 1, -1, -1): 
+    for i in range(len(palabra) - 1, -1, -1):
         res += palabra[i]
     return res
 
 # Ejercicio 3
 
-def armar_lista_de_estudiantes() -> list([str]): 
+
+def armar_lista_de_estudiantes() -> list([str]):
     res: list([str]) = []
-    nombre : str = input("Ingresa el nombre del estudiante:")
-    while (nombre != "listo"): 
+    nombre: str = input("Ingresa el nombre del estudiante:")
+    while (nombre != "listo"):
         res.append(nombre)
         nombre = input("Ingresa el nombre del estudiante:")
     return res
 
-def monedero_electronico() -> list([(str, int)]): # Preguntar si hay que ir guardando la plata, onda que no me pueden descontar y que me quede monto negativo
+
+# Preguntar si hay que ir guardando la plata, onda que no me pueden descontar y que me quede monto negativo
+def monedero_electronico() -> list([(str, int)]):
     res: list([str, int]) = []
-    operacion_actual = input("Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
-    while (operacion_actual == "C" or operacion_actual == "D"): 
-        if(operacion_actual == "C"): 
+    operacion_actual = input(
+        "Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
+    while (operacion_actual == "C" or operacion_actual == "D"):
+        if(operacion_actual == "C"):
             saldo = input("Ingrese cuanto le quiere cargar a la tarjeta: ")
             res.append((operacion_actual, saldo))
-        if(operacion_actual == "D"): 
+        if(operacion_actual == "D"):
             saldo = input("Ingrese cuanto quiere sacar de la cuenta: ")
             res.append((operacion_actual, saldo))
-        operacion_actual = input("Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
+        operacion_actual = input(
+            "Ingrese C para cargar creditos.\nIngrese D para descontar creditos.\nIngrese X para salir\n")
     return res
 
-def siete_y_medio(): #Preguntar pq devuelve una carta de mas
-    cartas : list([int]) = [generar_numero_random()]
-    desicion: str = input(f"Tu primer carta es el {cartas[0]} queres tirar otra carta? ")
-    while (desicion == "si" and sumar_puntos(cartas) < 7.5): 
+
+def siete_y_medio():  # Preguntar pq devuelve una carta de mas
+    cartas: list([int]) = [generar_numero_random()]
+    desicion: str = input(
+        f"Tu primer carta es el {cartas[0]} queres tirar otra carta? ")
+    while (desicion == "si" and sumar_puntos(cartas) < 7.5):
         desicion = input("Queres tirar otra carta?")
         cartas.append(generar_numero_random())
-    if(sumar_puntos(cartas) < 7.5): 
-        print(f"Te falto! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
-    if(sumar_puntos(cartas) > 7.5): 
-        print(f"Te pasaste! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
-    if(sumar_puntos(cartas) == 7.5): 
+    if(sumar_puntos(cartas) < 7.5):
+        print(
+            f"Te falto! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
+    if(sumar_puntos(cartas) > 7.5):
+        print(
+            f"Te pasaste! tus cartas fueron: {cartas} y tu puntaje fue de: {sumar_puntos(cartas)} puntos.")
+    if(sumar_puntos(cartas) == 7.5):
         print(f"Ganaste! tus cartas fueron: {cartas}")
-    
-def sumar_puntos(l: list([int])) -> int: 
-    res = 0
-    for i in range(0, len(l), 1): 
-        if(l[i] == 10 or l[i] == 1 or l[i] == 12): 
-            res += 0.5
-        else: res += 1
-    return res 
 
-def generar_numero_random() -> int: 
+
+def sumar_puntos(l: list([int])) -> int:
+    res = 0
+    for i in range(0, len(l), 1):
+        if(l[i] == 10 or l[i] == 1 or l[i] == 12):
+            res += 0.5
+        else:
+            res += 1
+    return res
+
+
+def generar_numero_random() -> int:
     res = random.randint(1, 12)
-    while (res == 8 or res == 9): 
+    while (res == 8 or res == 9):
         res = random.randint(1, 12)
     return res
 
@@ -239,22 +281,59 @@ def generar_numero_random() -> int:
 
 def pertenece_a_cada_uno(l: list([list([int])]), e: int) -> list([bool]):
     res: list([bool]) = []
-    for i in range(0,len(l), 1): 
+    for i in range(0, len(l), 1):
         res.append(pertenece(l[i], e))
     return res
 
-def es_matriz(l: list([list([int])])) -> bool: 
+
+def es_matriz(l: list([list([int])])) -> bool:
     res: bool = True
     longitud_matriz: int = len(l[0])
-    for i in range(1,len(l),1): 
-        if (len(l[i]) != longitud_matriz): 
+    for i in range(1, len(l), 1):
+        if (len(l[i]) != longitud_matriz):
             res = False
-    return res 
+    return res
+
 
 def filas_ordenadas(l: list([list([int])])) -> list([bool]):
     res: list([bool]) = []
-    for i in range(0,len(l), 1): 
+    for i in range(0, len(l), 1):
         res.append(ordenados(l[i]))
     return res
 
-print(filas_ordenadas([[1,2,3], [1,2,3], [6,5,4], [4,5,6]]))
+# Ejercicio dado de ejemplo como ejercicio de parcial
+
+
+def contar_cuantos_repetidos_hay(l: list([int])) -> tuple[list([int]), list([tuple[int, int]])]:
+    res: tuple[list([int]), list([tuple[int, int]])] = (
+        eliminar_repetidos(l), contar_repetidos(l))
+    return res
+
+
+def eliminar_repetidos(l: list([int])) -> list([int]):
+    res: list([int]) = []
+    for i in range(0, len(l), 1):
+        if(pertenece(res, l[i]) == False):
+            res.append(l[i])
+    return res
+
+
+def contar_repetidos(l: list([int])) -> list([tuple[int, int]]):
+    res: list([tuple[int, int]]) = []
+    lista_sin_repetidos: list([int]) = eliminar_repetidos(l)
+    for i in range(0, len(lista_sin_repetidos), 1):
+        tupla_actual: tuple[int, int] = (
+            lista_sin_repetidos[i], cantidad_apariciones(lista_sin_repetidos[i], l) - 1)
+        res.append(tupla_actual)
+    return res
+
+
+def cantidad_apariciones(e: int, l: list([int])) -> int:
+    res: int = 0
+    for i in range(0, len(l), 1):
+        if(l[i] == e):
+            res += 1
+    return res
+
+
+print(contar_cuantos_repetidos_hay([1, 1, 1, 2, 2, 3, 4, 5, 3]))

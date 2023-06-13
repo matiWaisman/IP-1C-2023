@@ -272,6 +272,20 @@ productoUnElemento x [] = []
 productoUnElemento x [y] = [(x, y)]
 productoUnElemento x (y : ys) = (x, y) : productoUnElemento x ys
 
- 
+-- Ejercicio dado de ejemplo como ejercicio de parcial
 
+eliminarYContarRepetidos :: [Integer] -> ([Integer], [(Integer, Integer)])
+eliminarYContarRepetidos l = (eliminarRepetidos l, contarRepetidos l)
 
+contarRepetidos :: [Integer] -> [(Integer, Integer)]
+contarRepetidos l = contarCuantosRepetidosHay (eliminarRepetidos l) l
+
+contarCuantosRepetidosHay :: [Integer] -> [Integer] -> [(Integer, Integer)]
+contarCuantosRepetidosHay [] _ = []
+contarCuantosRepetidosHay (x:xs) listaOriginal = (x, (cantidadApariciones x listaOriginal) - 1) : contarCuantosRepetidosHay xs listaOriginal
+
+cantidadApariciones :: (Eq t) => t -> [t] -> Integer
+cantidadApariciones _ [] = 0
+cantidadApariciones e (x:xs)
+  | e == x = 1 + cantidadApariciones e xs
+  | otherwise = cantidadApariciones e xs
