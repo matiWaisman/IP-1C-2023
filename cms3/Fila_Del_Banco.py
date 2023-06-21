@@ -7,13 +7,13 @@ def avanzarFila(fila: Queue, min: int):
     contador_minutos: int = 0  # Empieza en 0 y voy agregando minutos
     cliente_en_caja_3: int = -1
     cantidad_clientes: int = fila.qsize()
-    for minuto in range(0, min + 1, 1):
+    while(contador_minutos <= min):
         if(contador_minutos % 4 == 0):  # Llega nuevo cliente
             cantidad_clientes += 1
             fila.put(cantidad_clientes)
-        if(contador_minutos % 10 == 1 and not fila.empty()):  # Caja 1
+        if((contador_minutos % 10 == 1) and not (fila.empty())):  # Caja 1
             fila.get()
-        if(contador_minutos % 4 == 3 and not fila.empty()):  # Caja 2
+        if((contador_minutos % 4 == 3) and not (fila.empty())):  # Caja 2
             fila.get()
         if(contador_minutos % 4 == 2):  # Meto cliente en caja 3
             if(fila.empty()):
@@ -21,9 +21,11 @@ def avanzarFila(fila: Queue, min: int):
             else:
                 cliente_en_caja_3 = fila.get()
         # Agrego al cliente colgado de la caja 3 a la fila
-        if(contador_minutos >= 5 and contador_minutos % 3 == 2 and cliente_en_caja_3 != -1):
+        if (contador_minutos % 4 == 1) and not(cliente_en_caja_3 == -1):
             fila.put(cliente_en_caja_3)
+            cliente_en_caja_3 = -1
         contador_minutos += 1
+    return fila
 
 
 if __name__ == '__main__':
