@@ -193,9 +193,7 @@ esPrimo n
   | otherwise = False
 
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos n1 n2
-  | encontrarMenorDivisorComun n1 n2 2 == 1 = True
-  | otherwise = False
+sonCoprimos n1 n2 = encontrarMenorDivisorComun n1 n2 2 == 1 
 
 encontrarMenorDivisorComun :: Integer -> Integer -> Integer -> Integer
 encontrarMenorDivisorComun n1 n2 i
